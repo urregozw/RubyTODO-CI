@@ -6,13 +6,10 @@ This application was developed using ruby version 3.0.2 and rails v7
 
 The following routes are currently supported:
 
-* /todo/create   (Create a task)
-* /todo/show     (Show all created tasks)
-* /todo/show/:id (View task with id = :id)
-
-The following routes are going to be supported:
-
-* /todo/delete/:id
+* /todo/create     (Create a task)
+* /todo/show       (Show all created tasks)
+* /todo/show/:id   (View task with id = :id)
+* /todo/delete/:id (Delete task with id = :id)
 
 ## Getting started
 
