@@ -4,10 +4,14 @@ This is a simple application that creates, shows and deletes TODO tasks.
 
 This application was developed using ruby version 3.0.2 and rails v7
 
+The following routes are currently supportes:
+
+* /todo/create (Creating a task)
+* /todo/show   (Show all created tasks)
+
 The following routes are going to be supported:
 
-* /todo/create
-* /todo/show/:id?
+* /todo/show/:id
 * /todo/delete/:id
 
 ## Getting started
