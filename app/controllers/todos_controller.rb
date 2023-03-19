@@ -12,6 +12,7 @@ class TodosController < ApplicationController
   end
 
   def show
+    @tasks = Task.all
     render "show"
   end
 end
