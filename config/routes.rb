@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   get "todo/create", to: "todos#create"
   get "todo/show", to: "todos#show"
   get "todo/show/:id", to: "todos#show_one", as: 'task' # task_path
+  get "todo/delete/:id", to: "todos#delete", as: 'delete' #delete_path
   post "tasks", to: "todos#save"
 end

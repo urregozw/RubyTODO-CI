@@ -9,9 +9,10 @@
         Description:
         <%= task.description %>
         <br>
-        <%= link_to "Ver tarea", task_path(task)%>
+        <%= link_to "Ver tarea", task_path(task), {:style => 'margin: .5em; padding: 2px; border: 1px solid black'}%>
+        <%= link_to "Eliminar tarea", delete_path(task), {:style => 'margin:0.51em; padding: 2px; border: 1px solid red'}%>
     </div>
+<% end %>
 <% end %>
 <%= link_to "Crear tarea", :action => "create" %>
 
-<% end %>

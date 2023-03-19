@@ -25,4 +25,10 @@ class TodosController < ApplicationController
       redirect_to action: "show"
     end
   end
+
+  def delete
+    is_deleted = Task.delete(params[:id])
+    puts is_deleted
+    redirect_to action: "show"
+  end
 end
