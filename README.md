@@ -1,24 +1,25 @@
-# README
+# RubyTODO-CI
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a simple application that creates, shows and deletes TODO tasks.
 
-Things you may want to cover:
+This application was developed using ruby version 3.0.2
 
-* Ruby version
+The following routes are going to be supported:
 
-* System dependencies
+* /todo/create
+* /todo/show/:id?
+* /todo/delete/:id
 
-* Configuration
+## Getting started
 
-* Database creation
+Start by cloning the repository and run the following command to get all the dependencies needed to run the application
 
-* Database initialization
+```console
+$ bundle install
+```
 
-* How to run the test suite
+Once you are done setting up all the dependencies you can now start your application by running in your console
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```console
+$ rails server
+```
