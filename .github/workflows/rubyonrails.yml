@@ -30,5 +30,11 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+      - name: Install dependencies of ruby
+        run: gem install
+      - name: Security audit dependencies
+        run: bin/bundler-audit --update
+      - name: Security audit application code
+        run: bin/brakeman -q -w2
       - name: Lint Ruby files
         run: bin/rubocop --parallel
