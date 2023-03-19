@@ -15,4 +15,14 @@ class TodosController < ApplicationController
     @tasks = Task.all
     render "show"
   end
+
+  def show_one
+    begin
+      @task = Task.find(params[:id])
+      render "show_one"
+    rescue ActiveRecord::RecordNotFound => e
+      # Record of id = :id could not be found
+      redirect_to action: "show"
+    end
+  end
 end

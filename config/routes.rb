@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   # root "articles#index"
   get "todo/create", to: "todos#create"
   get "todo/show", to: "todos#show"
+  get "todo/show/:id", to: "todos#show_one", as: 'task' # task_path
   post "tasks", to: "todos#save"
 end
