@@ -20,5 +20,6 @@ module RubyTODOCi
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.hosts << "rubyapptodoseafit-lb-320713552.us-east-1.elb.amazonaws.com"
   end
 end

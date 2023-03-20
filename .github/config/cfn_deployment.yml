@@ -103,6 +103,34 @@ Resources:
         - Key: Name
           Value: DLLO-RubyApp
   
+  RubyAppTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckIntervalSeconds: 30
+      HealthCheckPath: /
+      UnhealthyThresholdCount: 10
+      HealthyThresholdCount: 10
+      HealthCheckProtocol: HTTP
+      Name: RubyAppTargetGroup
+      Port: 80
+      Targets: 
+        - Id: !Ref RubyAppInstance
+          Port: 80
+      Protocol: HTTP
+      TargetType: instance
+      VpcId: vpc-0e7f0aab015279d24
+      
+  RubyAppListenerHTTP:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref RubyAppTargetGroup
+      LoadBalancerArn: arn:aws:elasticloadbalancing:us-east-1:492155436352:loadbalancer/app/RubyAppTodosEAFIT-LB/9acc63398643621a
+      Port: 80
+      Protocol: HTTP
+
+
   RubyAppExecutionRole:
     Type: AWS::IAM::Role
     Properties:

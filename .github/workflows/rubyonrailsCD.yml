@@ -32,6 +32,6 @@ jobs:
           sudo chmod +x install-aws.sh
           sudo bash install-aws.sh "v2" "amd64"
           rm install-aws.sh  
-          aws cloudformation update-stack --stack-name RubyAppStack --template-body file://.github/config/cfn_deployment.yml --capabilities CAPABILITY_NAMED_IAM
+          aws cloudformation create-stack --stack-name RubyAppStack --template-body file://.github/config/cfn_deployment.yml --capabilities CAPABILITY_NAMED_IAM
 
 ...
