@@ -1,3 +1,5 @@
+---
+
 name: "Ruby on Rails CI"
 on:
   push:
@@ -15,9 +17,9 @@ jobs:
         ruby-version: 3.0.2
     - name: Install rubocop and run it
       run: |
-        gem install rubocop
+        gem install rubocop rubocop-rails
         bundle install --jobs 4 --retry 3
-        bundle exec rubocop --parallel
+        bundle exec rubocop --require rubocop-rails -A
 
 
   test:
@@ -63,3 +65,5 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+...

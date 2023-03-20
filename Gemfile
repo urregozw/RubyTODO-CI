@@ -75,3 +75,4 @@ end
 
 # Installation of RuboCop
 gem 'rubocop', require: false
+gem 'rubocop-rails'

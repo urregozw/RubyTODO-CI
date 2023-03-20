@@ -1,5 +1,9 @@
+---
+
 Style/Documentation:
   Enabled: false
 
 Lint/UselessAssignment:
   Enabled: false
+
+...
