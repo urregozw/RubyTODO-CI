@@ -21,6 +21,22 @@ $ bundle install
 $ rails db:migrate
 ```
 
+### Linter
+To lint the new changes use rubocop like this:
+
+```console
+$ rubocop --require rubocop-rails -A
+```
+
+### Tests
+To run the tests just execute the next commands:
+
+```console
+$ rake
+```
+
+### Run the application
+
 Once you are done setting up all the dependencies you can now start your application by running in your console
 
 ```console
