@@ -1,0 +1,136 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: "Template para montar aplicacion Ruby en EC2"
+
+Resources:
+  RubyAppLaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateName: RubyApp-Template
+      LaunchTemplateData:
+        # BlockDeviceMappings:
+        #   - DeviceName: /dev/xvda
+        #     Ebs:
+        #       DeleteOnTermination: no
+        #       Encrypted: yes
+        #       VolumeSize: 20
+        #       VolumeType: gp3
+        ImageId: ami-02f3f602d23f1659d
+        InstanceType: t3a.medium
+        KeyName: RubyAppEAFIT
+        IamInstanceProfile:
+          Arn: !GetAtt ServerProfile.Arn
+        Monitoring:
+          Enabled: false
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: DLLO-RubyApp
+          - ResourceType: volume
+            Tags:
+              - Key: Name
+                Value: DLLO-RubyApp
+        UserData:
+          Fn::Base64:
+            Fn::Sub:
+              - |
+                #!/bin/bash  
+                setenforce 0
+                
+                # Updating the server to local time UTC-5
+                timedatectl set-timezone America/Bogota
+                
+                # Updating and installing items that are needed
+                yum -y update 
+                yum -y install docker aws
+                
+                # Enable Docker
+                systemctl start docker
+                systemctl enable docker
+
+                # Permission to Repository
+                ln -s /bin/aws /usr/local/bin/aws
+                /usr/local/bin/aws --region us-east-1 ecr get-login-password | docker login --username AWS --password-stdin https://${image}
+                docker pull ${image}
+
+                # Cuando se reinicia la maquina
+                cat <<EOF > /opt/DockerUp.sh
+                #!/bin/bash
+                docker run -p 3000:80 ${image}:latest
+                EOF
+
+                # Give permissions to execute the files
+                chmod ugo+x /opt/DockerUp.sh
+                sh DockerUp.sh
+              - image: 492155436352.dkr.ecr.us-east-1.amazonaws.com/rubytodo-ci
+                
+  RubyAppSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      GroupDescription: SG para la app de Ruby
+      GroupName: RubyAppSG
+      SecurityGroupEgress: 
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0       
+      SecurityGroupIngress: 
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      Tags: 
+        - Key: Name
+          Value: DLLO-RubyApp
+      VpcId: vpc-0e7f0aab015279d24
+
+
+  RubyAppInstance: 
+    Type: AWS::EC2::Instance
+    Properties:
+      LaunchTemplate: 
+        LaunchTemplateId: !Ref RubyAppLaunchTemplate
+        Version: !GetAtt 'RubyAppLaunchTemplate.LatestVersionNumber'
+      SecurityGroupIds: [!Ref RubyAppSG]
+      SubnetId: subnet-044a587882cc7774e
+      Tags:
+        - Key: Name
+          Value: DLLO-RubyApp
+  
+  RubyAppExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: SonarQbueExecutionRole
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+              - 'ecr:GetAuthorizationToken'
+              - 'ecr:GetDownloadUrlForLayer'
+              - 'ecr:BatchGetImage'
+            Resource: "*"
+            Effect: Allow
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: 'sts:AssumeRole'
+
+  ServerProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: "/"
+      Roles:
+        - !Ref RubyAppExecutionRole
+...

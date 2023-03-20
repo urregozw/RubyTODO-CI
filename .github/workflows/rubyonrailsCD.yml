@@ -1,0 +1,14 @@
+---
+
+name: "Ruby on Rails CD"
+
+on:
+  workflow_run:
+    workflows: ["Ruby on Rails CI"]
+    types:
+      - completed
+
+jobs:
+  #TODO
+
+...
