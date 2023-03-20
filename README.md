@@ -1,5 +1,15 @@
-# RubyTODO-CI
+<div align="center">
 
+# RubyTODO-CI <br> :shield: :badger: :mage:
+
+> EAFIT Project for CI/CD course
+
+[![CI/CD](https://github.com/urregozw/RubyTODO-CI/actions/workflows/rubyonrails.yml/badge.svg)](https://github.com/urregozw/RubyTODO-CI/actions/workflows/rubyonrails.yml)
+[![GitHub tag](https://img.shields.io/github/tag/urregozw/RubyTODO-CI)]()
+[![License](https://img.shields.io/badge/License-MIT-blue)](#license "Go to license section")
+</div>
+
+# Introduction
 This is a simple application that creates, shows and deletes TODO tasks.
 
 This application was developed using ruby version 3.0.2 and rails v7
@@ -21,8 +31,32 @@ $ bundle install
 $ rails db:migrate
 ```
 
+### Linter
+To lint the new changes use rubocop like this:
+
+```console
+$ rubocop --require rubocop-rails -A
+```
+
+### Tests
+To run the tests just execute the next commands:
+
+```console
+$ rake
+```
+
+### Run the application
+
 Once you are done setting up all the dependencies you can now start your application by running in your console
 
 ```console
 $ rails server
 ```
+
+## License
+
+Released under [MIT](/LICENSE).
+
+- You can freely modify and reuse.
+- The _original license_ must be included with copies of this software.
+- Please _link back_ to this repo if you use a significant portion the source code.
