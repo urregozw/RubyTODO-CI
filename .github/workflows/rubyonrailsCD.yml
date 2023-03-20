@@ -3,10 +3,12 @@
 name: "Ruby on Rails CD"
 
 on:
-  workflow_run:
-    workflows: ["Ruby on Rails CI"]
-    types:
-      - completed
+  push:
+    branches: [ "main" ]
+  # workflow_run:
+  #   workflows: ["Ruby on Rails CI"]
+  #   types:
+  #     - completed
 
 jobs:
   deployDev:
@@ -15,11 +17,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Configure AWS Credentials
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.ACCESS_KEY_SECRET }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
       # Deploy to AWS CloudFormation
