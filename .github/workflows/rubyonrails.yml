@@ -3,31 +3,35 @@ on:
   push:
     branches: [ "main" ]
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    env:
-      RAILS_ENV: test
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-    # Add or replace dependency steps here
-    - name: Install Ruby and gems
-      uses: ruby/setup-ruby@v1
-      with:
-        bundler-cache: true
-    # Add or replace test runners here
-    - name: Run tests
-      run: bin/rake
 
   lint:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+      
     - name: RuboCop Linter
       run: echo "Se hace lint! :)"
+
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install Ruby and gems
+      uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+
+    - name: Run tests
+      run: bin/rake
   
   build:
+    needs: [lint, test]
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
