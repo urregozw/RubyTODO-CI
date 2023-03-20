@@ -127,7 +127,7 @@ Resources:
         - Type: forward
           TargetGroupArn: !Ref RubyAppTargetGroup
       LoadBalancerArn: arn:aws:elasticloadbalancing:us-east-1:492155436352:loadbalancer/app/RubyAppTodosEAFIT-LB/9acc63398643621a
-      Port: 80
+      Port: 80 
       Protocol: HTTP
 
 

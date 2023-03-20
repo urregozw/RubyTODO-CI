@@ -32,10 +32,11 @@ jobs:
           sudo chmod +x install-aws.sh
           sudo bash install-aws.sh "v2" "amd64"
           rm install-aws.sh  
-          echo "Se crea o se borra el stack"
-          aws cloudformation create-stack --stack-name RubyAppStack --template-body file://.github/config/cfn_deployment.yml --capabilities CAPABILITY_NAMED_IAM || aws cloudformation delete-stack --stack-name RubyAppStack
-          echo "Se espera que se cree o se borre el stack"
-          aws cloudformation wait stack-create-complete --stack-name RubyAppStack || aws cloudformation wait stack-delete-complete --stack-name RubyAppStack
+          STACK_NAME="RubyAppStack"
+          echo "Se borra el stack"
+          aws cloudformation delete-stack --stack-name $STACK_NAME; aws cloudformation wait stack-delete-complete --stack-name $STACK_NAME 
+          echo "Se crea el stack"
+          aws cloudformation create-stack --stack-name $STACK_NAME --template-body file://.github/config/cfn_deployment.yml --capabilities CAPABILITY_NAMED_IAM; aws cloudformation wait stack-create-complete --stack-name $STACK_NAME
           
 
 ...
