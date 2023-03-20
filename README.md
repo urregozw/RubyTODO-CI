@@ -4,7 +4,9 @@
 
 > EAFIT Project for CI/CD course
 
-[![CI/CD](https://github.com/urregozw/RubyTODO-CI/actions/workflows/rubyonrails.yml/badge.svg)](https://github.com/urregozw/RubyTODO-CI/actions/workflows/rubyonrails.yml)
+[![CI/CD](https://github.com/urregozw/RubyTODO-CI/actions/workflows/rubyonrailsCI.yml/badge.svg)](https://github.com/urregozw/RubyTODO-CI/actions/workflows/rubyonrailsCI.yml)
+[![CI/CD](https://github.com/urregozw/RubyTODO-CI/actions/workflows/rubyonrailsCD.yml/badge.svg)](https://github.com/urregozw/RubyTODO-CI/actions/workflows/rubyonrailsCD.yml)
+<br>
 [![GitHub tag](https://img.shields.io/github/tag/urregozw/RubyTODO-CI)]()
 [![License](https://img.shields.io/badge/License-MIT-blue)](#license "Go to license section")
 </div>
