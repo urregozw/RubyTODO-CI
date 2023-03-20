@@ -16,7 +16,7 @@ Resources:
         #       VolumeSize: 20
         #       VolumeType: gp3
         ImageId: ami-02f3f602d23f1659d
-        InstanceType: t3a.medium
+        InstanceType: t2.micro
         KeyName: RubyAppEAFIT
         IamInstanceProfile:
           Arn: !GetAtt ServerProfile.Arn
@@ -43,7 +43,7 @@ Resources:
                 
                 # Updating and installing items that are needed
                 yum -y update 
-                yum -y install docker aws
+                yum -y install docker
                 
                 # Enable Docker
                 systemctl start docker
@@ -113,19 +113,24 @@ Resources:
   RubyAppExecutionRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: SonarQbueExecutionRole
+      RoleName: RubyAppExecutionRole
       AssumeRolePolicyDocument:
         Statement:
-          - Action:
-              - 'ecr:GetAuthorizationToken'
-              - 'ecr:GetDownloadUrlForLayer'
-              - 'ecr:BatchGetImage'
-            Resource: "*"
-            Effect: Allow
           - Effect: Allow
             Principal:
               Service: ec2.amazonaws.com
             Action: 'sts:AssumeRole'
+      Policies:
+        - PolicyName: ECR
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Action:
+                  - 'ecr:GetAuthorizationToken'
+                  - 'ecr:GetDownloadUrlForLayer'
+                  - 'ecr:BatchGetImage'
+                Resource: "*"
+                Effect: Allow
 
   ServerProfile:
     Type: AWS::IAM::InstanceProfile
