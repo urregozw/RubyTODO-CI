@@ -24,12 +24,26 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # Deploy to AWS CloudFormation
-      - name: Deploy to AWS CloudFormation
-        uses: aws-actions/aws-cloudformation-github-deploy@v1
-        with:
-          name: RubyAppStack
-          template: .github/config/cfn_deployment.yml
-          no-fail-on-empty-changeset: "1"
+      - name: Build, tag, and push image to Amazon ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: rubytodo-ci
+          IMAGE_TAG: latest
+        run: |
+          sudo curl -L -o install-aws.sh https://raw.githubusercontent.com/unfor19/install-aws-cli-action/master/entrypoint.sh && \
+          sudo chmod +x install-aws.sh
+          sudo bash install-aws.sh "v2" "amd64"
+          rm install-aws.sh  
+          aws cloudformation create-stack --stack-name RubyAppStack --template-body file://.github/config/cfn_deployment.yml --capabilities CAPABILITY_NAMED_IAM
+
+      # # Deploy to AWS CloudFormation
+      # - name: Deploy to AWS CloudFormation
+      #   uses: aws-actions/aws-cloudformation-github-deploy@v1
+      #   with:
+      #     name: RubyAppStack
+      #     template: .github/config/cfn_deployment.yml
+      #     no-fail-on-empty-changeset: "1"
+
+          
 
 ...
