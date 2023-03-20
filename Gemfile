@@ -70,3 +70,6 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+# Installation of RuboCop
+gem 'rubocop', require: false
