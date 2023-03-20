@@ -1,3 +1,4 @@
+[![CI/CD](https://github.com/urregozw/RubyTODO-CI/actions/workflows/rubyonrails.yml/badge.svg)](https://github.com/urregozw/RubyTODO-CI/actions/workflows/rubyonrails.yml)
 # RubyTODO-CI
 
 This is a simple application that creates, shows and deletes TODO tasks.
