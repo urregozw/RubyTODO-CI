@@ -3,7 +3,8 @@
 # RubyTODO-CI <br> :shield: :badger: :mage:
 
 > EAFIT Project for CI/CD course
-
+[Link to the WebPage](http://rubyapptodoseafit-lb-320713552.us-east-1.elb.amazonaws.com/)
+<br>
 [![CI/CD](https://github.com/urregozw/RubyTODO-CI/actions/workflows/rubyonrailsCI.yml/badge.svg)](https://github.com/urregozw/RubyTODO-CI/actions/workflows/rubyonrailsCI.yml)
 [![CI/CD](https://github.com/urregozw/RubyTODO-CI/actions/workflows/rubyonrailsCD.yml/badge.svg)](https://github.com/urregozw/RubyTODO-CI/actions/workflows/rubyonrailsCD.yml)
 <br>
