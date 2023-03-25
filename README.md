@@ -1,6 +1,6 @@
 <div align="center">
 
-# RubyTODO-CI <br> :shield: :badger: :mage:
+# RubyTODO-CI <br> :shield: :gem: :mage:
 
 > EAFIT Project for CI/CD course
 <br>
